@@ -1,21 +1,25 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
+    "target": "ES2020",
+    "module": "ESNext",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./packages",
     "paths": {
-      "*": ["*", "root-app/src/*", "react-app/src/*", "vue-app/src/*"]
-    }
+      "*": ["*", "client-app-1/*", "client-app-2/*", "server-app/*"]
+    },
+    "jsx": "react-jsx"
   },
   "include": [
-    "packages/**/*"
+    "packages/server-app/src",
+    "packages/client-app-1/src",
+    "packages/client-app-2/src"
   ],
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
+  "references": [
+    { "path": "packages/server-app" },
+    { "path": "packages/client-app-1" },
+    { "path": "packages/client-app-2" }
   ]
 }
