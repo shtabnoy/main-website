@@ -9,8 +9,7 @@
     "baseUrl": "./packages",
     "paths": {
       "*": ["*", "client-app-1/*", "client-app-2/*", "server-app/*"]
-    },
-    "jsx": "react-jsx"
+    }
   },
   "include": [
     "packages/server-app/src",
