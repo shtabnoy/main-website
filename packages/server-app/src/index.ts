@@ -1,6 +1,5 @@
 import express from 'express';
 import path from 'path';
-import rewrite from 'express-urlrewrite';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -8,19 +7,21 @@ const PORT = process.env.PORT || 3000;
 // Middleware setup
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(rewrite('/assets/*', '/client-app-1/assets/$1'));
 
 app.use(
   '/client-app-1',
   express.static(path.join(__dirname, '../../client-app-1/dist'))
 );
-
 app.get('/client-app-1', (req, res) => {
   res.sendFile(path.join(__dirname, '../../client-app-1/dist/index.html'));
 });
 
+app.use(
+  '/client-app-2',
+  express.static(path.join(__dirname, '../../client-app-2/dist'))
+);
 app.get('/client-app-2', (req, res) => {
-  res.send('Hello from Client App 2');
+  res.sendFile(path.join(__dirname, '../../client-app-2/dist/index.html'));
 });
 
 // Start the server
