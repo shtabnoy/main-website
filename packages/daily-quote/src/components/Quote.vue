@@ -1,16 +1,25 @@
 <template>
   <div class="quote-container">
-    <button class="arrow-button up" @click="scrollUp">⬆️</button>
+    <button class="arrow-button up" @click="scrollUp">
+      <ArrowUpIcon class="icon" />
+    </button>
     <p class="quote">{{ quote }}</p>
-    <button class="arrow-button down" @click="scrollDown">⬇️</button>
+    <button class="arrow-button down" @click="scrollDown">
+      <ArrowDownIcon class="icon" />
+    </button>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import { ArrowUpIcon, ArrowDownIcon } from '@heroicons/vue/24/solid';
 
 export default defineComponent({
   name: 'Quote',
+  components: {
+    ArrowUpIcon,
+    ArrowDownIcon,
+  },
   setup() {
     const quotes = [
       'The best way to predict the future is to invent it.',
@@ -68,17 +77,19 @@ export default defineComponent({
 }
 
 .arrow-button {
-  background: none;
-  border: none;
   font-size: 2em;
   cursor: pointer;
 }
 
 .arrow-button.up {
-  align-self: flex-start;
+  align-self: center;
 }
 
 .arrow-button.down {
-  align-self: flex-end;
+  align-self: center;
+}
+
+.icon {
+  width: 24px;
 }
 </style>
