@@ -1,11 +1,13 @@
 <template>
-  <div id="app">
+  <div>
     <p>{{ quote }}</p>
+    <button @click="scrollUp">Up</button>
+    <button @click="scrollDown">Down</button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue';
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'Quote',
@@ -18,19 +20,31 @@ export default defineComponent({
       "Your time is limited, don't waste it living someone else's life.",
     ];
 
-    const quote = ref('');
+    const quote = ref(quotes[0]);
+    const currentIndex = ref(0);
 
-    const getRandomQuote = () => {
-      const randomIndex = Math.floor(Math.random() * quotes.length);
-      quote.value = quotes[randomIndex];
+    const scrollUp = () => {
+      if (currentIndex.value > 0) {
+        currentIndex.value--;
+      } else {
+        currentIndex.value = quotes.length - 1;
+      }
+      quote.value = quotes[currentIndex.value];
     };
 
-    onMounted(() => {
-      getRandomQuote();
-    });
+    const scrollDown = () => {
+      if (currentIndex.value < quotes.length - 1) {
+        currentIndex.value++;
+      } else {
+        currentIndex.value = 0;
+      }
+      quote.value = quotes[currentIndex.value];
+    };
 
     return {
       quote,
+      scrollUp,
+      scrollDown,
     };
   },
 });
