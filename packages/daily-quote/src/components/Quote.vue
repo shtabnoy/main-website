@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <p>{{ quote }}</p>
-    <button @click="scrollUp">Up</button>
-    <button @click="scrollDown">Down</button>
+  <div class="quote-container">
+    <button class="arrow-button up" @click="scrollUp">⬆️</button>
+    <p class="quote">{{ quote }}</p>
+    <button class="arrow-button down" @click="scrollDown">⬇️</button>
   </div>
 </template>
 
@@ -51,7 +51,34 @@ export default defineComponent({
 </script>
 
 <style>
-p {
+.quote-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.quote {
   font-size: 1.5em;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.arrow-button {
+  background: none;
+  border: none;
+  font-size: 2em;
+  cursor: pointer;
+}
+
+.arrow-button.up {
+  align-self: flex-start;
+}
+
+.arrow-button.down {
+  align-self: flex-end;
 }
 </style>
