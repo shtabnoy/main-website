@@ -1,5 +1,5 @@
 <template>
-  <div class="quote-container">
+  <div class="quote-container" v-if="quotes.length">
     <button class="arrow-button up" @click="scrollUp">
       <ArrowUpIcon class="icon" />
     </button>
@@ -8,10 +8,13 @@
       <ArrowDownIcon class="icon" />
     </button>
   </div>
+  <div v-else>
+    <p>Loading quotes...</p>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
 import { ArrowUpIcon, ArrowDownIcon } from '@heroicons/vue/24/solid';
 
 export default defineComponent({
@@ -21,37 +24,43 @@ export default defineComponent({
     ArrowDownIcon,
   },
   setup() {
-    const quotes = [
-      'The best way to predict the future is to invent it.',
-      'Life is 10% what happens to us and 90% how we react to it.',
-      'The only way to do great work is to love what you do.',
-      'Success is not the key to happiness. Happiness is the key to success.',
-      "Your time is limited, don't waste it living someone else's life.",
-    ];
-
-    const quote = ref(quotes[0]);
+    const quotes = ref<string[]>([]);
+    const quote = ref('');
     const currentIndex = ref(0);
+
+    const fetchQuotes = async () => {
+      const response = await fetch('/src/assets/quotes.json');
+      const data = await response.json();
+
+      quotes.value = data.quotes;
+      quote.value = quotes.value[0];
+    };
 
     const scrollUp = () => {
       if (currentIndex.value > 0) {
         currentIndex.value--;
       } else {
-        currentIndex.value = quotes.length - 1;
+        currentIndex.value = quotes.value.length - 1;
       }
-      quote.value = quotes[currentIndex.value];
+      quote.value = quotes.value[currentIndex.value];
     };
 
     const scrollDown = () => {
-      if (currentIndex.value < quotes.length - 1) {
+      if (currentIndex.value < quotes.value.length - 1) {
         currentIndex.value++;
       } else {
         currentIndex.value = 0;
       }
-      quote.value = quotes[currentIndex.value];
+      quote.value = quotes.value[currentIndex.value];
     };
+
+    onMounted(() => {
+      fetchQuotes();
+    });
 
     return {
       quote,
+      quotes,
       scrollUp,
       scrollDown,
     };
@@ -77,6 +86,8 @@ export default defineComponent({
 }
 
 .arrow-button {
+  border: none;
+  background-color: transparent;
   font-size: 2em;
   cursor: pointer;
 }
