@@ -16,6 +16,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue';
 import { ArrowUpIcon, ArrowDownIcon } from '@heroicons/vue/24/solid';
+import supabase from '../supabaseClient';
 
 export default defineComponent({
   name: 'Quote',
@@ -29,11 +30,16 @@ export default defineComponent({
     const currentIndex = ref(0);
 
     const fetchQuotes = async () => {
-      const response = await fetch('/src/assets/quotes.json');
-      const data = await response.json();
+      const { data, error } = await supabase.from('quotes').select('*');
 
-      quotes.value = data.quotes;
-      quote.value = quotes.value[0];
+      if (error) {
+        console.error('Error fetching data:', error);
+      } else {
+        quotes.value = data
+          .map((item) => item.body)
+          .filter((body) => body !== null);
+        quote.value = quotes.value[0];
+      }
     };
 
     const scrollUp = () => {
