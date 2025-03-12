@@ -30,11 +30,15 @@
   background-color: #6b8e23;
   border-radius: 50%;
   transform: scale(1);
-  animation: expand 1s forwards;
+  animation: expand 2s forwards;
 }
 
 @keyframes expand {
   to {
     transform: scale(300);
   }
+}
+
+.hide-dot::after {
+  display: none;
 }
