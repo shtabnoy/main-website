@@ -1,8 +1,18 @@
 .container {
-  width: 100%;
-  max-width: 450px;
+  width: 400px;
   text-align: center;
+  position: relative;
   /* -webkit-mask-image: url(#mask); */
+  /* mask-image: url(#mask); */
+}
+
+h1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+h1.black {
   mask-image: url(#mask);
 }
 

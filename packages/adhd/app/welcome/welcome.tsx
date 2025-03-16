@@ -45,6 +45,13 @@ export function Welcome() {
           </span>
           te
         </h1>
+        <h1 className="text-4xl text-black black">
+          Welcome to my s
+          <span ref={iRef} onClick={handleClick}>
+            i
+          </span>
+          te
+        </h1>
       </div>
     </>
   );
