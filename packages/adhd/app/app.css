@@ -7,13 +7,16 @@
 
 html,
 body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   @apply bg-white dark:bg-gray-950;
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
-}
-
-.new-theme-bg {
-  background-color: #6b8e23; /* Change to your desired background color */
 }
