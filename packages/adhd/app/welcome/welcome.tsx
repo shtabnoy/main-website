@@ -38,6 +38,7 @@ export function Welcome() {
             </mask>
           </defs>
         </svg>
+        <div className="divy masked"></div>
         <h1 className="text-4xl text-[#6B8E23]">
           Welcome to my s
           <span ref={iRef} onClick={handleClick}>
@@ -45,7 +46,7 @@ export function Welcome() {
           </span>
           te
         </h1>
-        <h1 className="text-4xl text-black black">
+        <h1 className="text-4xl text-black masked">
           Welcome to my s
           <span ref={iRef} onClick={handleClick}>
             i
