@@ -24,7 +24,7 @@ export function Welcome() {
 
   return (
     <>
-      <div ref={containerRef} className="container">
+      <div ref={containerRef} className="wrapper">
         <svg width="0" height="0">
           <defs>
             <mask id="mask">
