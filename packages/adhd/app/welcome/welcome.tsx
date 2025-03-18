@@ -24,20 +24,20 @@ export function Welcome() {
 
   return (
     <>
+      <svg width="0" height="0">
+        <defs>
+          <mask id="mask">
+            <circle
+              fill="#FFFFFF"
+              className={isClicked ? 'expand-circle' : ''}
+              cx={circlePosition.cx}
+              cy={circlePosition.cy}
+              r="10"
+            />
+          </mask>
+        </defs>
+      </svg>
       <div ref={containerRef} className="wrapper">
-        <svg width="0" height="0">
-          <defs>
-            <mask id="mask">
-              <circle
-                fill="#FFFFFF"
-                className={isClicked ? 'expand-circle' : ''}
-                cx={circlePosition.cx}
-                cy={circlePosition.cy}
-                r="1"
-              />
-            </mask>
-          </defs>
-        </svg>
         <div className="divy masked"></div>
         <h1 className="text-4xl text-[#6B8E23]">
           Welcome to my s
@@ -47,10 +47,7 @@ export function Welcome() {
           te
         </h1>
         <h1 className="text-4xl text-black masked">
-          Welcome to my s
-          <span ref={iRef} onClick={handleClick}>
-            i
-          </span>
+          Welcome to my s<span onClick={handleClick}>i</span>
           te
         </h1>
       </div>
