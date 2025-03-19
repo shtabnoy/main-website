@@ -12,13 +12,22 @@ export function Welcome() {
   };
 
   useEffect(() => {
-    if (iRef.current && containerRef.current) {
+    if (iRef.current) {
       const iRect = iRef.current.getBoundingClientRect();
-      const containerRect = containerRef.current.getBoundingClientRect();
-      setCirclePosition({
-        cx: iRect.left + iRect.width / 2 - containerRect.left,
-        cy: iRect.top + iRect.height / 2 - containerRect.top,
-      });
+      const h1Rect = iRef.current.parentElement?.getBoundingClientRect();
+      if (h1Rect) {
+        console.log('cx', iRect.left + iRect.width / 2 - h1Rect.left);
+        console.log('cy', iRect.top + iRect.height / 2 - h1Rect.top);
+        setCirclePosition({
+          cx: iRect.left + iRect.width / 2 - h1Rect.left, // Relative to h1
+          cy: iRect.top + iRect.height / 2 - h1Rect.top, // Relative to h1
+        });
+      }
+      // const containerRect = containerRef.current.getBoundingClientRect();
+      // setCirclePosition({
+      //   cx: iRect.left + iRect.width / 2 - containerRect.left,
+      //   cy: iRect.top + iRect.height / 2 - containerRect.top,
+      // });
     }
   }, []);
 
@@ -28,26 +37,27 @@ export function Welcome() {
         <defs>
           <mask id="mask">
             <circle
-              fill="#FFFFFF"
+              fill="#ffffff"
+              cx={'282.390625'}
+              cy={'20'}
+              r="1"
               className={isClicked ? 'expand-circle' : ''}
-              cx={circlePosition.cx}
-              cy={circlePosition.cy}
-              r="10"
             />
           </mask>
         </defs>
       </svg>
       <div ref={containerRef} className="wrapper">
-        <div className="divy masked"></div>
-        <h1 className="text-4xl text-[#6B8E23]">
+        {/* <div className="divy masked">
+        </div> */}
+        <h1 className="text-4xl text-[#6B8E23] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          Welcome to my s<span>i</span>
+          te
+        </h1>
+        <h1 className="text-4xl text-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 masked">
           Welcome to my s
           <span ref={iRef} onClick={handleClick}>
             i
           </span>
-          te
-        </h1>
-        <h1 className="text-4xl text-black masked">
-          Welcome to my s<span onClick={handleClick}>i</span>
           te
         </h1>
       </div>

@@ -11,13 +11,16 @@
 }
 
 h1 {
-  position: absolute;
-  top: 0;
-  /* left: 50%; */
+  /* position: absolute;
+  left: 100px; */
+  /* top: 0;
+  left: 300px; */
 }
 
 .masked {
   mask-image: url(#mask);
+  -webkit-mask: url(#mask);
+  mask-type: alpha;
 }
 
 @keyframes expandCircle {
@@ -35,8 +38,8 @@ h1 {
 
 .divy {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 200px;
+  left: 200px;
   width: 100%;
   height: 100%;
   background-color: #6b8e23;
