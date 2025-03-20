@@ -3,12 +3,11 @@ import './welcome.css';
 
 export function Welcome() {
   const [isClicked, setIsClicked] = useState(false);
-  const [circlePosition, setCirclePosition] = useState({ cx: 0, cy: 0 });
+  const [circlePosition, setCirclePosition] = useState({ cx: 0, cy: 0, r: 1 });
   const iRef = useRef<HTMLSpanElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   const handleClick = () => {
-    setIsClicked(true);
+    setCirclePosition((prev) => ({ ...prev, r: 500 }));
   };
 
   useEffect(() => {
@@ -16,18 +15,16 @@ export function Welcome() {
       const iRect = iRef.current.getBoundingClientRect();
       const h1Rect = iRef.current.parentElement?.getBoundingClientRect();
       if (h1Rect) {
-        console.log('cx', iRect.left + iRect.width / 2 - h1Rect.left);
-        console.log('cy', iRect.top + iRect.height / 2 - h1Rect.top);
         setCirclePosition({
-          cx: iRect.left + iRect.width / 2 - h1Rect.left, // Relative to h1
-          cy: iRect.top + iRect.height / 2 - h1Rect.top, // Relative to h1
+          cx: iRect.left,
+          cy: iRect.top,
+          r: 1,
         });
+        // setCirclePosition({
+        //   cx: iRect.left + iRect.width / 2 - h1Rect.left, // Relative to h1
+        //   cy: iRect.top + iRect.height / 2 - h1Rect.top, // Relative to h1
+        // });
       }
-      // const containerRect = containerRef.current.getBoundingClientRect();
-      // setCirclePosition({
-      //   cx: iRect.left + iRect.width / 2 - containerRect.left,
-      //   cy: iRect.top + iRect.height / 2 - containerRect.top,
-      // });
     }
   }, []);
 
@@ -38,22 +35,22 @@ export function Welcome() {
           <mask id="mask">
             <circle
               fill="#ffffff"
-              cx={'282.390625'}
-              cy={'20'}
-              r="1"
-              className={isClicked ? 'expand-circle' : ''}
+              cx={circlePosition.cx}
+              cy={circlePosition.cy}
+              r={circlePosition.r}
             />
           </mask>
         </defs>
       </svg>
-      <div ref={containerRef} className="wrapper">
-        {/* <div className="divy masked">
-        </div> */}
+      <div className="wrapper">
+        <div className="divy masked" />
         <h1 className="text-4xl text-[#6B8E23] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           Welcome to my s<span>i</span>
           te
         </h1>
-        <h1 className="text-4xl text-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 masked">
+        <h1
+          className={`text-4xl text-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2`}
+        >
           Welcome to my s
           <span ref={iRef} onClick={handleClick}>
             i
