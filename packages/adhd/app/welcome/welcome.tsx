@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import './welcome.css';
 
 export function Welcome() {
-  const [isClicked, setIsClicked] = useState(false);
   const [circlePosition, setCirclePosition] = useState({ cx: 0, cy: 0, r: 1 });
   const iRef = useRef<HTMLSpanElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -21,10 +20,6 @@ export function Welcome() {
           cy: iRect.top,
           r: 1,
         });
-        // setCirclePosition({
-        //   cx: iRect.left + iRect.width / 2 - h1Rect.left, // Relative to h1
-        //   cy: iRect.top + iRect.height / 2 - h1Rect.top, // Relative to h1
-        // });
       }
     }
   }, []);
@@ -32,10 +27,7 @@ export function Welcome() {
   return (
     <>
       <h1 className="text-4xl text-[#6B8E23] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-        Welcome to my s
-        <span ref={iRef} onClick={handleClick}>
-          i
-        </span>
+        Welcome to my s<span ref={iRef}>i</span>
         te
       </h1>
       <svg width="0" height="0">
@@ -53,14 +45,10 @@ export function Welcome() {
       <div
         className="wrapper z-20"
         ref={wrapperRef}
-        onClick={handleClick} // Trigger the animation on click
+        onClick={handleClick}
         style={{ mask: 'url(#mask)', WebkitMask: 'url(#mask)' }}
       >
         <div className="divy masked" />
-        {/* <h1 className="text-4xl text-[#6B8E23] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          Welcome to my s<span>i</span>
-          te
-        </h1> */}
         <h1
           className={`text-4xl text-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2`}
         >
