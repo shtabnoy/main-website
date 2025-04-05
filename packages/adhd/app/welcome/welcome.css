@@ -5,19 +5,6 @@
   position: relative;
 }
 
-@keyframes expandCircle {
-  from {
-    r: 1;
-  }
-  to {
-    r: 400;
-  }
-}
-
-.expand-circle {
-  animation: expandCircle 2s forwards;
-}
-
 circle {
   transition: r 2s ease-out;
 }

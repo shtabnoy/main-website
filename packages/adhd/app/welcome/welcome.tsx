@@ -1,23 +1,31 @@
 import { useEffect, useRef, useState } from 'react';
 import './welcome.css';
 
+const MIN_RADIUS = 5;
+const ALIGNMENT = 3;
+const MAX_RADIUS = typeof window !== 'undefined' ? window.innerWidth : 0;
+
 export function Welcome() {
-  const [circlePosition, setCirclePosition] = useState({ cx: 0, cy: 0, r: 1 });
-  const iRef = useRef<HTMLSpanElement>(null);
+  const [circlePosition, setCirclePosition] = useState({
+    cx: 0,
+    cy: 0,
+    r: MIN_RADIUS,
+  });
+  const spanRef = useRef<HTMLSpanElement>(null);
 
   const handleClick = () => {
-    setCirclePosition((prev) => ({ ...prev, r: 500 }));
+    setCirclePosition((prev) => ({ ...prev, r: MAX_RADIUS }));
   };
 
   useEffect(() => {
-    if (iRef.current) {
-      const iRect = iRef.current.getBoundingClientRect();
-      const h1Rect = iRef.current.parentElement?.getBoundingClientRect();
+    if (spanRef.current) {
+      const iRect = spanRef.current.getBoundingClientRect();
+      const h1Rect = spanRef.current.parentElement?.getBoundingClientRect();
       if (h1Rect) {
         setCirclePosition({
-          cx: iRect.left,
-          cy: iRect.top,
-          r: 1,
+          cx: iRect.left + iRect.width / 2,
+          cy: iRect.top + iRect.height / 2 + ALIGNMENT,
+          r: MIN_RADIUS,
         });
       }
     }
@@ -38,14 +46,16 @@ export function Welcome() {
         </defs>
       </svg>
       <h1 className="text-[#6B8E23] z-10 target-text">
-        Welcome to my s<span ref={iRef}>i</span>
-        te
+        Welcome t<span ref={spanRef}>o</span> my site
       </h1>
       <div className="wrapper z-20">
         <div className="overlay" />
         <h1 className={`text-black target-text`}>
-          Welcome to my s<span onClick={handleClick}>i</span>
-          te
+          Welcome t
+          <span className="cursor-pointer" onClick={handleClick}>
+            o
+          </span>{' '}
+          my site
         </h1>
       </div>
     </>
