@@ -3,17 +3,16 @@ import './welcome.css';
 
 export function Welcome() {
   const [circlePosition, setCirclePosition] = useState({ cx: 0, cy: 0, r: 1 });
-  const iRef = useRef<HTMLSpanElement>(null);
-  const wrapperRef = useRef<HTMLDivElement>(null);
+  const spanRef = useRef<HTMLSpanElement>(null);
 
   const handleClick = () => {
     setCirclePosition((prev) => ({ ...prev, r: 500 }));
   };
 
   useEffect(() => {
-    if (iRef.current) {
-      const iRect = iRef.current.getBoundingClientRect();
-      const h1Rect = iRef.current.parentElement?.getBoundingClientRect();
+    if (spanRef.current) {
+      const iRect = spanRef.current.getBoundingClientRect();
+      const h1Rect = spanRef.current.parentElement?.getBoundingClientRect();
       if (h1Rect) {
         setCirclePosition({
           cx: iRect.left,
@@ -26,10 +25,6 @@ export function Welcome() {
 
   return (
     <>
-      <h1 className="text-4xl text-[#6B8E23] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-        Welcome to my s<span ref={iRef}>i</span>
-        te
-      </h1>
       <svg width="0" height="0">
         <defs>
           <mask id="mask">
@@ -42,16 +37,13 @@ export function Welcome() {
           </mask>
         </defs>
       </svg>
-      <div
-        className="wrapper z-20"
-        ref={wrapperRef}
-        onClick={handleClick}
-        style={{ mask: 'url(#mask)', WebkitMask: 'url(#mask)' }}
-      >
-        <div className="divy masked" />
-        <h1
-          className={`text-4xl text-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2`}
-        >
+      <h1 className="text-[#6B8E23] z-10 target-text">
+        Welcome to my s<span ref={spanRef}>i</span>
+        te
+      </h1>
+      <div className="wrapper z-20" onClick={handleClick}>
+        <div className="overlay" style={{ maskImage: 'url(#mask)' }} />
+        <h1 className={`text-black target-text`}>
           Welcome to my s<span>i</span>
           te
         </h1>
