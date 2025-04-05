@@ -29,6 +29,7 @@ circle {
   width: 100%;
   height: 100%;
   background-color: #6b8e23;
+  mask-image: url(#mask);
 }
 
 .target-text {

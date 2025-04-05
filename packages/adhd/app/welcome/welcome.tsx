@@ -3,16 +3,16 @@ import './welcome.css';
 
 export function Welcome() {
   const [circlePosition, setCirclePosition] = useState({ cx: 0, cy: 0, r: 1 });
-  const spanRef = useRef<HTMLSpanElement>(null);
+  const iRef = useRef<HTMLSpanElement>(null);
 
   const handleClick = () => {
     setCirclePosition((prev) => ({ ...prev, r: 500 }));
   };
 
   useEffect(() => {
-    if (spanRef.current) {
-      const iRect = spanRef.current.getBoundingClientRect();
-      const h1Rect = spanRef.current.parentElement?.getBoundingClientRect();
+    if (iRef.current) {
+      const iRect = iRef.current.getBoundingClientRect();
+      const h1Rect = iRef.current.parentElement?.getBoundingClientRect();
       if (h1Rect) {
         setCirclePosition({
           cx: iRect.left,
@@ -38,13 +38,13 @@ export function Welcome() {
         </defs>
       </svg>
       <h1 className="text-[#6B8E23] z-10 target-text">
-        Welcome to my s<span ref={spanRef}>i</span>
+        Welcome to my s<span ref={iRef}>i</span>
         te
       </h1>
-      <div className="wrapper z-20" onClick={handleClick}>
-        <div className="overlay" style={{ maskImage: 'url(#mask)' }} />
+      <div className="wrapper z-20">
+        <div className="overlay" />
         <h1 className={`text-black target-text`}>
-          Welcome to my s<span>i</span>
+          Welcome to my s<span onClick={handleClick}>i</span>
           te
         </h1>
       </div>
